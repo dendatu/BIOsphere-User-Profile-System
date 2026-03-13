@@ -73,101 +73,100 @@
 
 <div class="profile-page">
 
-<div class="profile-cover">
+    <div class="profile-cover">
 
-<?php
-    if($user['profile_pic']){
-        echo "<img class='profile-avatar' src='uploads/".$user['profile_pic']."'>";
-    }else{
-        echo "<img class='profile-avatar' src='https://via.placeholder.com/160'>";
-    }
-?>
+    <?php
+        if($user['profile_pic']){
+            echo "<img class='profile-avatar' src='uploads/".$user['profile_pic']."'>";
+        }else{
+            echo "<img class='profile-avatar' src='https://via.placeholder.com/160'>";
+        }
+    ?>
 
-</div>
+    </div>
 
-<div class="profile-info">
+    <div class="profile-info">
 
-<h1><?php echo htmlspecialchars($user['full_name']); ?></h1>
+        <h1><?php echo htmlspecialchars($user['full_name']); ?></h1>
 
-<div class="skills">
-<b>Skills:</b><br>
-<?php echo htmlspecialchars($user['skills']); ?>
-</div>
+        <div class="skills">
+            <b>Skills:</b><br>
+            <?php echo htmlspecialchars($user['skills']); ?>
+        </div>
 
-<h3 style="margin-top:20px;">Update Profile Picture</h3>
+        <h3 style="margin-top:20px;">Update Profile Picture</h3>
 
-<form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
-<input type="file" name="fileToUpload" id="fileUpload" required>
+        <input type="file" name="fileToUpload" id="fileUpload" required>
 
-<img id="preview" class="preview-img">
+        <img id="preview" class="preview-img">
 
-<p id="fileMessage" class="message"></p>
+        <p id="fileMessage" class="message"></p>
 
-<button name="submit">Upload</button>
+        <button name="submit">Upload</button>
 
-</form>
+        </form>
 
-<?php if($message!=""){ ?>
-<p class="message"><?php echo $message; ?></p>
-<?php } ?>
+        <?php if($message!=""){ ?>
+        <p class="message"><?php echo $message; ?></p>
+        <?php } ?>
 
-<h3 style="margin-top:20px;">Edit Profile Information</h3>
+        <h3 style="margin-top:20px;">Edit Profile Information</h3>
 
-<a href="edit_profile.php">
-<button type="button" class="secondary">Edit Profile</button>
-</a>
+        <a href="edit_profile.php">
+        <button type="button" class="secondary">Edit Profile</button>
+        </a>
 
-</div>
+    </div>
 
 </div>
 
 <script>
 
-/* -------- IMAGE PREVIEW VALIDATION -------- */
+    /* -------- IMAGE PREVIEW VALIDATION -------- */
 
-const fileUpload = document.getElementById("fileUpload");
-const preview = document.getElementById("preview");
-const message = document.getElementById("fileMessage");
+    const fileUpload = document.getElementById("fileUpload");
+    const preview = document.getElementById("preview");
+    const message = document.getElementById("fileMessage");
 
-if(fileUpload){
+    if(fileUpload){
 
-fileUpload.addEventListener("change",function(){
+        fileUpload.addEventListener("change",function(){
 
-const file = this.files[0];
+            const file = this.files[0];
 
-if(!file) return;
+            if(!file) return;
 
-const allowedTypes = ["image/jpeg","image/png","image/gif","image/jpg"];
+            const allowedTypes = ["image/jpeg","image/png","image/gif","image/jpg"];
 
-if(!allowedTypes.includes(file.type)){
+            if(!allowedTypes.includes(file.type)){
 
-preview.style.display="none";
-preview.src="";
-message.innerText = "This file cannot be previewed or uploaded because it is not a photo.";
+                preview.style.display="none";
+                preview.src="";
+                message.innerText = "This file cannot be previewed or uploaded because it is not a photo.";
 
-this.value="";
+                this.value="";
 
-return;
+                return;
 
-}
+            }
 
-message.innerText = "";
+            message.innerText = "";
 
-const reader = new FileReader();
+            const reader = new FileReader();
 
-reader.onload = function(e){
+            reader.onload = function(e){
+                preview.src = e.target.result;
+                preview.style.display="block";
 
-preview.src = e.target.result;
-preview.style.display="block";
+            };
 
-};
+            reader.readAsDataURL(file);
 
-reader.readAsDataURL(file);
+        });
 
-});
-
-}
+    }
 
 </script>
 
