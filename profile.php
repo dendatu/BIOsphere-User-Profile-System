@@ -79,7 +79,7 @@
         if($user['profile_pic']){
             echo "<img class='profile-avatar' src='uploads/".$user['profile_pic']."'>";
         }else{
-            echo "<img class='profile-avatar' src='https://via.placeholder.com/160'>";
+            echo "<img class='profile-avatar' src='assets/default-profile-pic.png'>";
         }
     ?>
 
