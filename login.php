@@ -3,6 +3,7 @@
     include "db.php";
 
     $message="";
+    $username="";
 
     if(isset($_POST['login'])){
 
@@ -14,18 +15,18 @@
 
     if($result->num_rows>0){
 
-    $user=$result->fetch_assoc();
+        $user=$result->fetch_assoc();
 
-    if(password_verify($password,$user['password'])){
+        if(password_verify($password,$user['password'])){
 
-        $_SESSION['user_id']=$user['id'];
+            $_SESSION['user_id']=$user['id'];
 
-        header("Location: profile.php");
-        exit();
+            header("Location: profile.php");
+            exit();
 
-    }else{
-        $message="Incorrect password.";
-    }
+        }else{
+            $message="Incorrect password.";
+        }
 
     }else{
         $message="User not found.";
@@ -45,7 +46,7 @@
 
         <form method="POST">
 
-        <input type="text" name="username" placeholder="Username" required>
+        <input type="text" name="username" placeholder="Username" value="<?php echo htmlspecialchars($username); ?>" required>
 
         <input type="password" name="password" placeholder="Password" required>
 
